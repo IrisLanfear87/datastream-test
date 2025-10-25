@@ -11,3 +11,9 @@ export type ResultTableProps = {
   heading: string;
   data: CSVDataRowUnit[];
 };
+
+export type RowParsingError = {
+  message: string;
+  row?: Papa.ParseStepResult<CSVDataRowUnit>;
+  originalError?: unknown;
+};

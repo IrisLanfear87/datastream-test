@@ -3,23 +3,7 @@
 import { useState, type ChangeEvent } from "react";
 import Papa, { type ParseResult } from "papaparse";
 import type { CSVDataRowUnit } from "./types";
-
-function filterNonWaterTempRows(
-  row: Papa.ParseStepResult<CSVDataRowUnit>,
-  result: CSVDataRowUnit[]
-) {
-  const { MonitoringLocationID, CharacteristicName, ResultValue, ResultUnit } =
-    row.data;
-
-  if (CharacteristicName === "Temperature, water") {
-    result.push({
-      MonitoringLocationID,
-      CharacteristicName,
-      ResultValue,
-      ResultUnit,
-    });
-  }
-}
+import { filterNonWaterTempRows } from "../../utils/utils";
 
 const CsvUploader = () => {
   const [csvData, setCsvData] = useState<CSVDataRowUnit[] | null>(null);

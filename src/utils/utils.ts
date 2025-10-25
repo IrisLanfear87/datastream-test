@@ -1,5 +1,5 @@
-import type { CSVDataRowUnit } from "../components/CsvUploader/types";
 import { PhysicalProperties } from "../constants/constants";
+import type { CSVDataRowUnit } from "../interface/types";
 
 export function filterNonWaterTempRows(
   row: Papa.ParseStepResult<CSVDataRowUnit>,

@@ -2,13 +2,21 @@
 
 import { useState, type ChangeEvent } from "react";
 import Papa, { type ParseError, type ParseResult } from "papaparse";
-import { filterNonWaterTempRows } from "../../utils/utils";
-import type { CSVDataRowUnit, RowParsingError } from "../../interface/types";
+import {
+  calculateTabularData,
+  filterNonWaterTempRows,
+  formatTabularData,
+} from "../../utils/utils";
+import type {
+  CSVDataRowUnit,
+  ResultTableProps,
+  RowParsingError,
+} from "../../interface/types";
 import ResultTable from "../ResultTable/ResultTable";
 import { GENERIC_ERROR_MESSAGE } from "../../constants/copy";
 
 const CsvUploader = () => {
-  const [csvData, setCsvData] = useState<CSVDataRowUnit[] | null>(null);
+  const [tabularData, setTabularData] = useState<ResultTableProps | null>(null);
   const [errors, setErrors] = useState<ParseError[] | RowParsingError[] | null>(
     null
   );
@@ -28,15 +36,19 @@ const CsvUploader = () => {
         complete: (results: ParseResult<CSVDataRowUnit>) => {
           if (results.errors.length > 0) {
             setErrors(results.errors);
-            setCsvData(null);
+            setTabularData(null);
           } else {
             if (parsingErrors.length) {
               setErrors(parsingErrors);
-              setCsvData(null);
+              setTabularData(null);
               return;
             }
             //ovde izracunaj proseke
-            setCsvData(parsedResults);
+            const calculatedTabularData = calculateTabularData(parsedResults);
+            const formattedTabularData = formatTabularData(
+              calculatedTabularData
+            );
+            setTabularData(formattedTabularData);
             setErrors(null);
           }
         },
@@ -47,7 +59,7 @@ const CsvUploader = () => {
               originalError: err,
             },
           ]);
-          setCsvData(null);
+          setTabularData(null);
         },
       });
     }
@@ -62,7 +74,12 @@ const CsvUploader = () => {
             <p style={{ color: "red" }}>{error.message}</p>
           </div>
         ))}
-      {csvData && <ResultTable heading={"parsed data"} data={csvData} />}
+      {tabularData && (
+        <ResultTable
+          content={tabularData.content}
+          header={tabularData.header}
+        />
+      )}
     </div>
   );
 };

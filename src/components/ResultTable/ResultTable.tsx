@@ -1,19 +1,19 @@
-import type { CSVDataRowUnit, ResultTableProps } from "../../interface/types";
+import type { ResultTableProps, TabularDataUnit } from "../../interface/types";
 
-const ResultTable = ({ heading, data }: ResultTableProps) => {
+const ResultTable = ({ header, content }: ResultTableProps) => {
   return (
     <div>
-      <h3>{heading}</h3>
+      <h3>Table lalalalalal</h3>
       <table>
         <thead>
           <tr>
-            {Object.keys(data[0]).map((key) => (
+            {header.map((key) => (
               <th key={key}>{key}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {data.map((row: CSVDataRowUnit, index) => (
+          {content.map((row: TabularDataUnit, index) => (
             <tr key={index}>
               {Object.values(row).map((value, i) => (
                 <td key={i}>{value}</td>

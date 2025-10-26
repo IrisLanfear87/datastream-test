@@ -1,19 +1,33 @@
 import type { PhysicalProperties, Units } from "../constants/constants";
 
-export type CSVDataRowUnit = {
-  CharacteristicName: typeof PhysicalProperties.WATER_TEMPERATURE;
-  MonitoringLocationID: string;
-  ResultUnit: typeof Units.DEGREES_CELSIUS;
-  ResultValue: string;
-};
+export type CharacteristicName = typeof PhysicalProperties.WATER_TEMPERATURE;
+export type Unit = typeof Units.DEGREES_CELSIUS;
 
-export type ResultTableProps = {
-  heading: string;
-  data: CSVDataRowUnit[];
+export type CSVDataRowUnit = {
+  CharacteristicName: CharacteristicName;
+  MonitoringLocationID: string;
+  ResultUnit: Unit;
+  ResultValue: string;
 };
 
 export type RowParsingError = {
   message: string;
   row?: Papa.ParseStepResult<CSVDataRowUnit>;
   originalError?: unknown;
+};
+
+export type TabularDataUnit = {
+  ResultValues: string[];
+  CharacteristicName: CharacteristicName;
+  ResultUnit: Unit;
+  AverageResultValue: number;
+};
+
+export type AggregatedTabularData = {
+  [MonitoringLocationID: string]: TabularDataUnit;
+};
+
+export type ResultTableProps = {
+  header: string[];
+  content: TabularDataUnit[];
 };

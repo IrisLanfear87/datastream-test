@@ -3,6 +3,10 @@ import type { PhysicalProperties, Units } from "../constants/constants";
 export type CharacteristicName = typeof PhysicalProperties.WATER_TEMPERATURE;
 export type Unit = typeof Units.DEGREES_CELSIUS;
 
+export type ParsedCsvDataResults = {
+  [MonitoringLocationID: string]: CSVDataRowUnit[];
+};
+
 export type CSVDataRowUnit = {
   CharacteristicName: CharacteristicName;
   MonitoringLocationID: string;
@@ -16,19 +20,17 @@ export type RowParsingError = {
   originalError?: unknown;
 };
 
-export type TabularDataUnit = {
-  MonitoringLocationID: string;
-  ResultValues: string[];
-  CharacteristicName: CharacteristicName;
-  ResultUnit: Unit;
-  AverageResultValue: string | number;
-};
+type MonitoringLocationID = string;
+type AverageResultValue = string;
 
-export type AggregatedTabularData = {
-  [MonitoringLocationID: string]: TabularDataUnit;
-};
+export type TabularDataUnit = [
+  MonitoringLocationID,
+  CharacteristicName,
+  AverageResultValue,
+  Unit
+];
 
 export type ResultTableProps = {
   header: string[];
-  content: (string | number)[][];
+  content: TabularDataUnit[];
 };

@@ -1,15 +1,19 @@
-import { PhysicalProperties } from "../constants/constants";
+import {
+  NOT_AVAILABLE,
+  PhysicalProperties,
+  Units,
+} from "../constants/constants";
 import { ROW_ERROR_MESSAGE } from "../constants/copy";
 import type {
-  AggregatedTabularData,
   CSVDataRowUnit,
-  ResultTableProps,
+  ParsedCsvDataResults,
   RowParsingError,
+  TabularDataUnit,
 } from "../interface/types";
 
 export function filterNonWaterTempRows(
   row: Papa.ParseStepResult<CSVDataRowUnit>,
-  result: CSVDataRowUnit[],
+  result: ParsedCsvDataResults,
   errors: RowParsingError[]
 ) {
   try {
@@ -20,14 +24,18 @@ export function filterNonWaterTempRows(
       ResultUnit,
     } = row.data;
 
-    if (CharacteristicName === PhysicalProperties.WATER_TEMPERATURE) {
-      result.push({
-        MonitoringLocationID,
-        CharacteristicName,
-        ResultValue,
-        ResultUnit,
-      });
+    if (result[MonitoringLocationID] === undefined) {
+      result[MonitoringLocationID] = [];
     }
+
+    if (CharacteristicName !== PhysicalProperties.WATER_TEMPERATURE) return;
+
+    result[MonitoringLocationID].push({
+      MonitoringLocationID,
+      CharacteristicName,
+      ResultValue,
+      ResultUnit,
+    });
   } catch (error) {
     errors.push({
       message: ROW_ERROR_MESSAGE,
@@ -37,12 +45,12 @@ export function filterNonWaterTempRows(
   }
 }
 
-function calculateAvg(values: string[]) {
-  if (values.length === 0) return 0;
+function calculateAvg(values: CSVDataRowUnit[]): string | null {
+  if (values.length === 0) return null;
 
   let numberOfValidTerms = values.length;
   const sum = values.reduce((acc, curr) => {
-    const currentNumericValue = parseFloat(curr);
+    const currentNumericValue = parseFloat(curr.ResultValue);
     let currentTerm = 0;
 
     if (isNaN(currentNumericValue)) {
@@ -54,75 +62,34 @@ function calculateAvg(values: string[]) {
     return acc + currentTerm;
   }, 0);
 
-  if (sum === 0) return sum;
-
-  return sum / numberOfValidTerms;
+  return (sum === 0 ? sum : sum / numberOfValidTerms).toFixed(2);
 }
 
 export function calculateTabularData(
-  parsedResults: CSVDataRowUnit[]
-): AggregatedTabularData {
-  const aggregatedByLocationId = {} as AggregatedTabularData;
-
-  parsedResults.forEach(
-    ({
-      MonitoringLocationID,
-      CharacteristicName,
-      ResultValue,
-      ResultUnit,
-    }: CSVDataRowUnit) => {
-      if (aggregatedByLocationId[MonitoringLocationID]) {
-        aggregatedByLocationId[MonitoringLocationID].ResultValues.push(
-          ResultValue
-        );
-      } else {
-        aggregatedByLocationId[MonitoringLocationID] = {
-          MonitoringLocationID,
-          ResultValues: [ResultValue],
-          CharacteristicName,
-          ResultUnit,
-          AverageResultValue: 0,
-        };
-      }
-    }
-  );
+  aggregatedByLocationId: ParsedCsvDataResults
+): TabularDataUnit[] {
+  const tabularData = [] as TabularDataUnit[];
 
   for (const location in aggregatedByLocationId) {
-    aggregatedByLocationId[location].AverageResultValue = calculateAvg(
-      aggregatedByLocationId[location].ResultValues
-    ).toFixed(2);
-  }
+    const tableRowInitData: TabularDataUnit = [
+      location,
+      PhysicalProperties.WATER_TEMPERATURE,
+      NOT_AVAILABLE,
+      Units.DEGREES_CELSIUS,
+    ];
 
-  return aggregatedByLocationId;
-}
+    if (aggregatedByLocationId[location].length) {
+      const averageResultValuePerLocation = calculateAvg(
+        aggregatedByLocationId[location]
+      );
 
-export function formatTabularData(
-  calculatedTabularData: AggregatedTabularData
-): ResultTableProps {
-  let header = [] as string[];
-  const content = [] as (string | number)[][];
-
-  Object.values(calculatedTabularData).map((tabularDataUnit) => {
-    const { ResultValues, ...rest } = tabularDataUnit;
-    if (!header.length) {
-      header = [...Object.keys(rest)].map((el) => separateWords(el));
+      tableRowInitData[2] =
+        averageResultValuePerLocation === null
+          ? NOT_AVAILABLE
+          : averageResultValuePerLocation;
     }
-    content.push(Object.values(rest));
-  });
 
-  return {
-    header,
-    content,
-  };
-}
-
-function separateWords(inputString: string): string {
-  if (!inputString || typeof inputString !== "string") {
-    return inputString;
+    tabularData.push(tableRowInitData);
   }
-
-  return inputString
-    .replace(/([a-z])([A-Z][a-z])/g, "$1 $2")
-    .replace(/(?!^)([A-Z]{2,})/g, " $1")
-    .trim();
+  return tabularData;
 }

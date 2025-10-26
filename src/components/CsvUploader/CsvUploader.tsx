@@ -5,30 +5,33 @@ import Papa, { type ParseError, type ParseResult } from "papaparse";
 import {
   calculateTabularData,
   filterNonWaterTempRows,
-  formatTabularData,
 } from "../../utils/utils";
 import type {
   CSVDataRowUnit,
-  ResultTableProps,
+  ParsedCsvDataResults,
   RowParsingError,
+  TabularDataUnit,
 } from "../../interface/types";
 import ResultTable from "../ResultTable/ResultTable";
 import { GENERIC_ERROR_MESSAGE } from "../../constants/copy";
+import { TableColumnHeaders } from "../../constants/constants";
 
 const CsvUploader = () => {
-  const [tabularData, setTabularData] = useState<ResultTableProps | null>(null);
+  const [tabularData, setTabularData] = useState<TabularDataUnit[] | null>(
+    null
+  );
   const [errors, setErrors] = useState<ParseError[] | RowParsingError[] | null>(
     null
   );
 
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event?.target?.files?.[0];
-    const parsedResults = [] as CSVDataRowUnit[];
+    const parsedResults = {} as ParsedCsvDataResults;
     const parsingErrors = [] as RowParsingError[];
 
     if (file) {
       Papa.parse(file, {
-        header: true, // Assumes the first row is headers
+        header: true,
         skipEmptyLines: true,
         step: function (row) {
           filterNonWaterTempRows(row, parsedResults, parsingErrors);
@@ -43,12 +46,8 @@ const CsvUploader = () => {
               setTabularData(null);
               return;
             }
-            //ovde izracunaj proseke
             const calculatedTabularData = calculateTabularData(parsedResults);
-            const formattedTabularData = formatTabularData(
-              calculatedTabularData
-            );
-            setTabularData(formattedTabularData);
+            setTabularData(calculatedTabularData);
             setErrors(null);
           }
         },
@@ -74,7 +73,11 @@ const CsvUploader = () => {
             <p style={{ color: "red" }}>{error.message}</p>
           </div>
         ))}
-      {tabularData && <ResultTable {...tabularData} />}
+      {tabularData && (
+        <ResultTable
+          {...{ header: TableColumnHeaders, content: tabularData }}
+        />
+      )}
     </div>
   );
 };

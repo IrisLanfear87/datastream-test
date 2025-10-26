@@ -1,4 +1,4 @@
-import type { ResultTableProps } from "../../interface/types";
+import type { ResultTableProps, TabularDataUnit } from "../../interface/types";
 
 const ResultTable = ({ header, content }: ResultTableProps) => {
   return (
@@ -13,7 +13,7 @@ const ResultTable = ({ header, content }: ResultTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {content.map((row: (string | number)[], index) => (
+          {content.map((row: TabularDataUnit, index) => (
             <tr key={index}>
               {row.map((value, i) => (
                 <td key={i}>{value}</td>

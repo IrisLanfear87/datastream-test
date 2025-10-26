@@ -5,7 +5,6 @@ import type {
   CSVDataRowUnit,
   ResultTableProps,
   RowParsingError,
-  TabularDataUnit,
 } from "../interface/types";
 
 export function filterNonWaterTempRows(
@@ -78,6 +77,7 @@ export function calculateTabularData(
         );
       } else {
         aggregatedByLocationId[MonitoringLocationID] = {
+          MonitoringLocationID,
           ResultValues: [ResultValue],
           CharacteristicName,
           ResultUnit,
@@ -90,7 +90,7 @@ export function calculateTabularData(
   for (const location in aggregatedByLocationId) {
     aggregatedByLocationId[location].AverageResultValue = calculateAvg(
       aggregatedByLocationId[location].ResultValues
-    );
+    ).toFixed(2);
   }
 
   return aggregatedByLocationId;
@@ -99,12 +99,15 @@ export function calculateTabularData(
 export function formatTabularData(
   calculatedTabularData: AggregatedTabularData
 ): ResultTableProps {
-  const header = [] as string[];
-  const content = [] as TabularDataUnit[];
+  let header = [] as string[];
+  const content = [] as (string | number)[][];
 
-  Object.entries(calculatedTabularData).map(([key, value]) => {
-    header.push(key);
-    content.push(value);
+  Object.values(calculatedTabularData).map((tabularDataUnit) => {
+    const { ResultValues: UnitResultvalues, ...rest } = tabularDataUnit;
+    if (!header.length) {
+      header = [...Object.keys(rest)];
+    }
+    content.push(Object.values(rest));
   });
 
   return {

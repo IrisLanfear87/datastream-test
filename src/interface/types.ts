@@ -17,10 +17,11 @@ export type RowParsingError = {
 };
 
 export type TabularDataUnit = {
+  MonitoringLocationID: string;
   ResultValues: string[];
   CharacteristicName: CharacteristicName;
   ResultUnit: Unit;
-  AverageResultValue: number;
+  AverageResultValue: string | number;
 };
 
 export type AggregatedTabularData = {
@@ -29,5 +30,5 @@ export type AggregatedTabularData = {
 
 export type ResultTableProps = {
   header: string[];
-  content: TabularDataUnit[];
+  content: (string | number)[][];
 };

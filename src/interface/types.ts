@@ -34,3 +34,11 @@ export type ResultTableProps = {
   header: string[];
   content: TabularDataUnit[];
 };
+
+export type CSVInputProps = {
+  handleParsing: (
+    file: File,
+    parsedResults: ParsedCsvDataResults,
+    parsingErrors: RowParsingError[]
+  ) => void;
+};

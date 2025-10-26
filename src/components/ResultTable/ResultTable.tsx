@@ -3,7 +3,6 @@ import type { ResultTableProps, TabularDataUnit } from "../../interface/types";
 const ResultTable = ({ header, content }: ResultTableProps) => {
   return (
     <div>
-      <h3>Table lalalalalal</h3>
       <table>
         <thead>
           <tr>

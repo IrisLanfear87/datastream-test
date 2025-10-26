@@ -1,4 +1,4 @@
-// import styles from "./CsvUploader.module.css";
+import styles from "./CsvUploader.module.css";
 
 import { type ChangeEvent } from "react";
 
@@ -7,6 +7,7 @@ import type {
   ParsedCsvDataResults,
   RowParsingError,
 } from "../../interface/types";
+import { CSV_FILE_TITLE } from "../../constants/copy";
 
 const CsvUploader = ({ handleParsing }: CSVInputProps) => {
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +21,8 @@ const CsvUploader = ({ handleParsing }: CSVInputProps) => {
   };
 
   return (
-    <div>
+    <div className={styles.wrapper}>
+      <p className={styles.info}>{CSV_FILE_TITLE}</p>
       <input type="file" accept=".csv" onChange={handleFileUpload} />
     </div>
   );

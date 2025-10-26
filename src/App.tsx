@@ -60,22 +60,20 @@ function App() {
   };
 
   return (
-    <>
-      <div>
-        <CsvUploader handleParsing={handleParsing} />
-        {errors?.length &&
-          errors?.map((error, i) => (
-            <div key={`${i}_${error}`}>
-              <p style={{ color: "red" }}>{error.message}</p>
-            </div>
-          ))}
-        {!errors?.length && tabularData && (
-          <ResultTable
-            {...{ header: TableColumnHeaders, content: tabularData }}
-          />
-        )}
-      </div>
-    </>
+    <div className="appContainer">
+      <CsvUploader handleParsing={handleParsing} />
+      {errors?.length &&
+        errors?.map((error, i) => (
+          <div key={`${i}_${error}`}>
+            <p style={{ color: "red" }}>{error.message}</p>
+          </div>
+        ))}
+      {!errors?.length && tabularData && (
+        <ResultTable
+          {...{ header: TableColumnHeaders, content: tabularData }}
+        />
+      )}
+    </div>
   );
 }
 

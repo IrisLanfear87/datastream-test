@@ -1,0 +1,39 @@
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.tableContainer table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tableContainer thead tr {
+  background-color: #f0f4f8;
+  color: #1f2937;
+}
+
+.tableContainer th {
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 2px solid #e2e8f0;
+  letter-spacing: 0.5px;
+}
+
+.tableContainer tbody tr {
+  border-bottom: 1px solid #edf2f7;
+}
+
+.tableContainer td {
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.4;
+}

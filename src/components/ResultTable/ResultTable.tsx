@@ -1,8 +1,10 @@
+import styles from "./ResultTable.module.css";
+
 import type { ResultTableProps, TabularDataUnit } from "../../interface/types";
 
 const ResultTable = ({ header, content }: ResultTableProps) => {
   return (
-    <div>
+    <div className={styles.tableContainer}>
       <table>
         <thead>
           <tr>

@@ -1,7 +1,6 @@
 import type { ResultTableProps } from "../../interface/types";
 
 const ResultTable = ({ header, content }: ResultTableProps) => {
-  console.log(content);
   return (
     <div>
       <h3>Table lalalalalal</h3>

@@ -74,12 +74,7 @@ const CsvUploader = () => {
             <p style={{ color: "red" }}>{error.message}</p>
           </div>
         ))}
-      {tabularData && (
-        <ResultTable
-          content={tabularData.content}
-          header={tabularData.header}
-        />
-      )}
+      {tabularData && <ResultTable {...tabularData} />}
     </div>
   );
 };

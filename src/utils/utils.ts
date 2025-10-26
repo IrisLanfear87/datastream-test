@@ -103,9 +103,9 @@ export function formatTabularData(
   const content = [] as (string | number)[][];
 
   Object.values(calculatedTabularData).map((tabularDataUnit) => {
-    const { ResultValues: UnitResultvalues, ...rest } = tabularDataUnit;
+    const { ResultValues, ...rest } = tabularDataUnit;
     if (!header.length) {
-      header = [...Object.keys(rest)];
+      header = [...Object.keys(rest)].map((el) => separateWords(el));
     }
     content.push(Object.values(rest));
   });
@@ -114,4 +114,15 @@ export function formatTabularData(
     header,
     content,
   };
+}
+
+function separateWords(inputString: string): string {
+  if (!inputString || typeof inputString !== "string") {
+    return inputString;
+  }
+
+  return inputString
+    .replace(/([a-z])([A-Z][a-z])/g, "$1 $2")
+    .replace(/(?!^)([A-Z]{2,})/g, " $1")
+    .trim();
 }

@@ -1,7 +1,8 @@
 import {
+  MIXED_UNITS,
+  NO_DATA,
   NOT_AVAILABLE,
   PhysicalProperties,
-  Units,
 } from "../constants/constants";
 import { ROW_ERROR_MESSAGE } from "../constants/copy";
 import type {
@@ -9,6 +10,7 @@ import type {
   ParsedCsvDataResults,
   RowParsingError,
   TabularDataUnit,
+  Unit,
 } from "../interface/types";
 
 export function filterNonWaterTempRows(
@@ -65,6 +67,15 @@ function calculateAvg(values: CSVDataRowUnit[]): string | null {
   return (sum === 0 ? sum : sum / numberOfValidTerms).toFixed(2);
 }
 
+function deduplicateUnits(values: CSVDataRowUnit[]): Unit[] {
+  const unitSet = values.reduce((acc, curr) => {
+    acc.add(curr.ResultUnit);
+    return acc;
+  }, new Set<Unit>());
+
+  return [...unitSet];
+}
+
 export function calculateTabularData(
   aggregatedByLocationId: ParsedCsvDataResults
 ): TabularDataUnit[] {
@@ -74,9 +85,18 @@ export function calculateTabularData(
     const tableRowInitData: TabularDataUnit = [
       location,
       PhysicalProperties.WATER_TEMPERATURE,
+      NO_DATA,
       NOT_AVAILABLE,
-      Units.DEGREES_CELSIUS,
     ];
+
+    const uniqueUnits = deduplicateUnits(aggregatedByLocationId[location]);
+
+    if (uniqueUnits.length > 1) {
+      tableRowInitData[3] = MIXED_UNITS;
+
+      tabularData.push(tableRowInitData);
+      continue;
+    }
 
     if (aggregatedByLocationId[location].length) {
       const averageResultValuePerLocation = calculateAvg(
@@ -87,6 +107,8 @@ export function calculateTabularData(
         averageResultValuePerLocation === null
           ? NOT_AVAILABLE
           : averageResultValuePerLocation;
+
+      tableRowInitData[3] = uniqueUnits[0];
     }
 
     tabularData.push(tableRowInitData);

@@ -14,3 +14,7 @@ export const TableColumnHeaders = [
 ];
 
 export const NOT_AVAILABLE = "N/A";
+
+export const MIXED_UNITS = "Dataset contains mixed unit values";
+
+export const NO_DATA = "No data available";

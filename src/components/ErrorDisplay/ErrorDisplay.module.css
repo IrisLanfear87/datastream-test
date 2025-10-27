@@ -1,0 +1,10 @@
+.errorContainer {
+  margin: 1.5rem 0;
+}
+
+.errorMessage {
+  color: #dc2626;
+  margin: 0.5rem 0;
+  font-weight: 500;
+  line-height: 1.5;
+}

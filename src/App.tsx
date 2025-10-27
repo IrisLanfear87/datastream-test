@@ -1,6 +1,7 @@
 import "./App.css";
 import CsvUploader from "./components/CsvUploader/CsvUploader";
 import Header from "./components/Header/Header";
+import ErrorDisplay from "./components/ErrorDisplay/ErrorDisplay";
 import { useState } from "react";
 import Papa, { type ParseError, type ParseResult } from "papaparse";
 import { calculateTabularData, filterNonWaterTempRows } from "./utils/utils";
@@ -64,12 +65,7 @@ function App() {
     <div className="appContainer">
       <Header />
       <CsvUploader handleParsing={handleParsing} />
-      {errors?.length &&
-        errors?.map((error, i) => (
-          <div key={`${i}_${error}`}>
-            <p style={{ color: "red" }}>{error.message}</p>
-          </div>
-        ))}
+      {errors?.length && <ErrorDisplay errorCount={errors.length} />}
       {!errors?.length && tabularData && (
         <ResultTable
           {...{ header: TableColumnHeaders, content: tabularData }}

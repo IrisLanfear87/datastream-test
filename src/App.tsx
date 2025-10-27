@@ -1,5 +1,6 @@
 import "./App.css";
 import CsvUploader from "./components/CsvUploader/CsvUploader";
+import Header from "./components/Header/Header";
 import { useState } from "react";
 import Papa, { type ParseError, type ParseResult } from "papaparse";
 import { calculateTabularData, filterNonWaterTempRows } from "./utils/utils";
@@ -61,6 +62,7 @@ function App() {
 
   return (
     <div className="appContainer">
+      <Header />
       <CsvUploader handleParsing={handleParsing} />
       {errors?.length &&
         errors?.map((error, i) => (

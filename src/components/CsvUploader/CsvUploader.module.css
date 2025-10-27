@@ -20,9 +20,9 @@ input::file-selector-button:hover {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 2rem;
   width: 250px;
   margin: 0 auto;
+  margin-bottom: 3rem;
 }
 
 .info {

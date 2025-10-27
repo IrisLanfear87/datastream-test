@@ -227,7 +227,24 @@ export const mockInvalidRow = {
   },
 };
 
-export const mockRowWithMissingFields = {
+export const mockRowWithMissingLocation = {
+  data: {
+    CharacteristicName: "Temperature, water",
+    ResultUnit: "deg C",
+    ResultValue: "16.2",
+    // Missing MonitoringLocationID field
+  },
+  errors: [],
+  meta: {
+    delimiter: ",",
+    linebreak: "\n",
+    aborted: false,
+    truncated: false,
+    cursor: 0,
+  },
+};
+
+export const mockRowWithMissingResultFields = {
   data: {
     MonitoringLocationID: "TEST-LOC-001",
     CharacteristicName: "Temperature, water",

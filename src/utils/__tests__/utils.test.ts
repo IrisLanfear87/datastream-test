@@ -6,8 +6,9 @@ import {
   mockNonWaterTempRow,
   mockWaterTempRowDifferentLocation,
   mockInvalidRow,
-  mockRowWithMissingFields,
-} from "./mockData";
+  mockRowWithMissingResultFields,
+  mockRowWithMissingLocation,
+} from "../mockData";
 import type {
   CSVDataRowUnit,
   ParsedCsvDataResults,
@@ -15,8 +16,7 @@ import type {
 } from "../../interface/types";
 import type { ParseStepResult } from "papaparse";
 
-// Test file for utils.ts functions
-// This file will contain tests for:
+// This file will contain tests for utils.ts functions:
 // - filterNonWaterTempRows
 // - calculateTabularData
 // - calculateAvg (if made public)
@@ -32,7 +32,6 @@ describe("Utils Functions", () => {
     });
 
     it("should filter and add water temperature rows to result", () => {
-      // Test that valid water temperature rows are added to the result object
       filterNonWaterTempRows(mockWaterTempRow1, result, errors);
 
       expect(result["RivTemp-Qc-16-75"]).toHaveLength(1);
@@ -45,17 +44,16 @@ describe("Utils Functions", () => {
       expect(errors).toHaveLength(0);
     });
 
-    it("should ignore non-water temperature rows", () => {
-      // Test that rows with different CharacteristicName are ignored
+    it("should ignore rows that are not 'Temperature, water', but create a location key if there was none", () => {
       filterNonWaterTempRows(mockNonWaterTempRow, result, errors);
 
-      expect(Object.keys(result)).toHaveLength(0);
-      expect(result["WS"]).toBeUndefined();
+      expect(Object.keys(result)).toHaveLength(1);
+      expect(Array.isArray(result["WS"])).toBe(true);
+      expect(result["WS"]).toHaveLength(0);
       expect(errors).toHaveLength(0);
     });
 
     it("should handle multiple rows for the same monitoring location", () => {
-      // Test that multiple water temp readings for same location are properly accumulated
       filterNonWaterTempRows(mockWaterTempRow1, result, errors);
       filterNonWaterTempRows(mockWaterTempRow2, result, errors);
 
@@ -79,7 +77,7 @@ describe("Utils Functions", () => {
     });
 
     it("should initialize location array if it does not exist", () => {
-      // Test that new monitoring locations get properly initialized in result object
+      // Test whether new monitoring locations get properly initialized in the result object
       expect(result["RivTemp-Qc-16-75"]).toBeUndefined();
 
       filterNonWaterTempRows(mockWaterTempRow1, result, errors);
@@ -90,7 +88,6 @@ describe("Utils Functions", () => {
     });
 
     it("should handle parsing errors gracefully", () => {
-      // Test error handling when row data is malformed or missing
       filterNonWaterTempRows(
         mockInvalidRow as unknown as ParseStepResult<CSVDataRowUnit>,
         result,
@@ -99,22 +96,33 @@ describe("Utils Functions", () => {
 
       expect(Object.keys(result)).toHaveLength(0);
       expect(errors).toHaveLength(1);
-      expect(errors[0].message).toBe("missing necessary data");
-      expect(errors[0]).toBe(mockInvalidRow);
+      expect(errors[0].message).toBe("missing or empty data row");
       expect(errors[0].originalError).toBeDefined();
     });
 
-    it("should add errors to the errors array when exceptions occur", () => {
-      // Test that parsing errors are properly captured and stored
+    it("should add error to the errors array when location id is missing", () => {
       filterNonWaterTempRows(
-        mockRowWithMissingFields as unknown as ParseStepResult<CSVDataRowUnit>,
+        mockRowWithMissingLocation as unknown as ParseStepResult<CSVDataRowUnit>,
         result,
         errors
       );
 
+      expect(Object.keys(result)).toHaveLength(0);
       expect(errors).toHaveLength(1);
-      expect(errors[0]).toBe(mockInvalidRow);
-      expect(errors[0].message).toBe("missing necessary data");
+      expect(errors[0].message).toBe("missing location ID");
+    });
+
+    it("should add error to the errors array when result fields are missing, but create a location key", () => {
+      filterNonWaterTempRows(
+        mockRowWithMissingResultFields as unknown as ParseStepResult<CSVDataRowUnit>,
+        result,
+        errors
+      );
+
+      expect(Object.keys(result)).toHaveLength(1);
+      expect(result["TEST-LOC-001"]).toBeDefined();
+      expect(errors).toHaveLength(1);
+      expect(errors[0].message).toBe("missing necessary data properties");
     });
   });
 });

@@ -26,6 +26,15 @@ export function filterNonWaterTempRows(
       ResultUnit,
     } = row.data;
 
+    if (
+      !MonitoringLocationID ||
+      !CharacteristicName ||
+      !ResultValue ||
+      !ResultUnit
+    ) {
+      throw new Error("missing necessary data");
+    }
+
     if (result[MonitoringLocationID] === undefined) {
       result[MonitoringLocationID] = [];
     }
@@ -40,7 +49,7 @@ export function filterNonWaterTempRows(
     });
   } catch (error) {
     errors.push({
-      message: ROW_ERROR_MESSAGE,
+      message: error instanceof Error ? error.message : ROW_ERROR_MESSAGE,
       row,
       originalError: error,
     });

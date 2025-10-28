@@ -3,6 +3,7 @@ import {
   filterNonWaterTempRows,
   calculateAvg,
   deduplicateUnits,
+  calculateTabularData,
 } from "../utils";
 import {
   mockWaterTempRow1,
@@ -232,6 +233,25 @@ describe("Utils Functions", () => {
         mockInvalidUnitsValues as CSVDataRowUnit[]
       );
       expect(result).toEqual([]);
+    });
+  });
+
+  describe("calculateTabularData", () => {
+    it("should return empty array for empty input object", () => {
+      const result = calculateTabularData({});
+      expect(result).toEqual([]);
+    });
+
+    it("should handle single location with single unit", () => {
+      // Test: calculateTabularData({ LOC001: mockSingleUnitValues }) should return correct tabular row
+      const result = calculateTabularData({ LOC001: mockSingleUnitValues });
+      expect(result).toHaveLength(1);
+      expect(result[0]).toEqual([
+        "LOC001",
+        "Temperature, water",
+        "25.00",
+        "deg C",
+      ]);
     });
   });
 });

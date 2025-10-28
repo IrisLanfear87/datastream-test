@@ -416,3 +416,82 @@ export const mockDecimalTemperatureValues = [
     ResultUnit: "deg C" as const,
   },
 ];
+
+// Mock CSVDataRowUnit arrays for deduplicateUnits tests
+export const mockSingleUnitValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "20.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "25.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "30.0",
+    ResultUnit: "deg C" as const,
+  },
+];
+
+export const mockMultipleUnitsValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "20.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "68.0",
+    ResultUnit: "deg F" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "293.15",
+    ResultUnit: "deg K" as const,
+  },
+];
+
+export const mockSingleUnitValue = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "20.0",
+    ResultUnit: "deg C" as const,
+  },
+];
+
+export const mockDuplicateUnitsValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "20.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "25.0",
+    ResultUnit: "deg F" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "30.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "77.0",
+    ResultUnit: "deg F" as const,
+  },
+];

@@ -1,5 +1,9 @@
 import { describe, it, expect, beforeEach } from "@jest/globals";
-import { filterNonWaterTempRows, calculateAvg } from "../utils";
+import {
+  filterNonWaterTempRows,
+  calculateAvg,
+  deduplicateUnits,
+} from "../utils";
 import {
   mockWaterTempRow1,
   mockWaterTempRow2,
@@ -16,6 +20,10 @@ import {
   mockNegativeTemperatureValues,
   mockDecimalTemperatureValues,
   mockZeroSumTempValues,
+  mockSingleUnitValue,
+  mockMultipleUnitsValues,
+  mockDuplicateUnitsValues,
+  mockEmptyValuesForUnits,
 } from "../mockData";
 import type {
   CSVDataRowUnit,
@@ -26,8 +34,9 @@ import type { ParseStepResult } from "papaparse";
 
 // This file will contain tests for utils.ts functions:
 // - filterNonWaterTempRows
-// - calculateTabularData
 // - calculateAvg
+// - deduplicateUnits
+// - calculateTabularData
 
 describe("Utils Functions", () => {
   describe("filterNonWaterTempRows", () => {
@@ -183,6 +192,28 @@ describe("Utils Functions", () => {
     it("should handle decimal temperature values", () => {
       const result = calculateAvg(mockDecimalTemperatureValues);
       expect(result).toBe("16.67"); // Average of 12.5, 17.3, and 20.2
+    });
+  });
+
+  describe("deduplicateUnits", () => {
+    it("should return empty array for empty input", () => {
+      // Test: deduplicateUnits([]) should return []
+    });
+
+    it("should return single unit when provided with a single value array", () => {
+      // Test: deduplicateUnits(mockSingleUnitValue) should return ["deg C"]
+    });
+
+    it("should return single unit when all values have the same unit", () => {
+      // Test: deduplicateUnits(mockSingleUnitValues) should return ["deg C"]
+    });
+
+    it("should return multiple unique units when values have different units", () => {
+      // Test: deduplicateUnits(mockMultipleUnitsValues) should return ["deg C", "deg F", "deg K"]
+    });
+
+    it("should deduplicate units when there are duplicates", () => {
+      // Test: deduplicateUnits(mockDuplicateUnitsValues) should return ["deg C", "deg F"]
     });
   });
 });

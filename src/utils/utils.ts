@@ -59,8 +59,8 @@ export function filterNonWaterTempRows(
   }
 }
 
-function calculateAvg(values: CSVDataRowUnit[]): string | null {
-  if (values.length === 0) return null;
+export function calculateAvg(values: CSVDataRowUnit[]): string | null {
+  if (!values || values.length === 0) return null;
 
   let numberOfValidTerms = values.length;
   const sum = values.reduce((acc, curr) => {
@@ -76,10 +76,12 @@ function calculateAvg(values: CSVDataRowUnit[]): string | null {
     return acc + currentTerm;
   }, 0);
 
+  if (numberOfValidTerms === 0) return null;
+
   return (sum === 0 ? sum : sum / numberOfValidTerms).toFixed(2);
 }
 
-function deduplicateUnits(values: CSVDataRowUnit[]): Unit[] {
+export function deduplicateUnits(values: CSVDataRowUnit[]): Unit[] {
   const unitSet = values.reduce((acc, curr) => {
     acc.add(curr.ResultUnit);
     return acc;

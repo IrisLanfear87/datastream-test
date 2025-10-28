@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from "@jest/globals";
-import { filterNonWaterTempRows } from "../utils";
+import { filterNonWaterTempRows, calculateAvg } from "../utils";
 import {
   mockWaterTempRow1,
   mockWaterTempRow2,
@@ -8,6 +8,14 @@ import {
   mockInvalidRow,
   mockRowWithMissingResultFields,
   mockRowWithMissingLocation,
+  mockValidTemperatureValues,
+  mockMixedValues,
+  mockAllInvalidValues,
+  mockZeroTemperatureValues,
+  mockDecimalPrecisionValues,
+  mockNegativeTemperatureValues,
+  mockDecimalTemperatureValues,
+  mockZeroSumTempValues,
 } from "../mockData";
 import type {
   CSVDataRowUnit,
@@ -19,7 +27,7 @@ import type { ParseStepResult } from "papaparse";
 // This file will contain tests for utils.ts functions:
 // - filterNonWaterTempRows
 // - calculateTabularData
-// - calculateAvg (if made public)
+// - calculateAvg
 
 describe("Utils Functions", () => {
   describe("filterNonWaterTempRows", () => {
@@ -123,6 +131,58 @@ describe("Utils Functions", () => {
       expect(result["TEST-LOC-001"]).toBeDefined();
       expect(errors).toHaveLength(1);
       expect(errors[0].message).toBe("missing necessary data properties");
+    });
+  });
+
+  describe("calculateAvg", () => {
+    it("should return null for empty array", () => {
+      const result = calculateAvg([]);
+      expect(result).toBeNull();
+    });
+
+    it("should return null for no array", () => {
+      const result = calculateAvg(null as unknown as CSVDataRowUnit[]);
+      expect(result).toBeNull();
+    });
+
+    it("should calculate correct average for valid numeric values", () => {
+      const result = calculateAvg(mockValidTemperatureValues);
+      expect(result).toBe("25.00");
+    });
+
+    it("should ignore invalid numeric values and calculate average from valid ones", () => {
+      const result = calculateAvg(mockMixedValues);
+      expect(result).toBe("25.00");
+    });
+
+    it("should return null when all values are invalid", () => {
+      const result = calculateAvg(mockAllInvalidValues);
+      expect(result).toBe(null);
+    });
+
+    it("should return 0.00 if all temperature values are 0", () => {
+      const result = calculateAvg(mockZeroTemperatureValues);
+      expect(result).toBe("0.00");
+    });
+
+    it("should return 0.00 if temperature values sum up to 0", () => {
+      const result = calculateAvg(mockZeroSumTempValues);
+      expect(result).toBe("0.00");
+    });
+
+    it("should format result to 2 decimal places", () => {
+      const result = calculateAvg(mockDecimalPrecisionValues);
+      expect(result).toBe("26.00"); // Average of 25.333333 and 26.666667 rounded to 2 decimal places
+    });
+
+    it("should handle negative temperature values", () => {
+      const result = calculateAvg(mockNegativeTemperatureValues);
+      expect(result).toBe("-10.00"); // Average of -5.0 and -15.0
+    });
+
+    it("should handle decimal temperature values", () => {
+      const result = calculateAvg(mockDecimalTemperatureValues);
+      expect(result).toBe("16.67"); // Average of 12.5, 17.3, and 20.2
     });
   });
 });

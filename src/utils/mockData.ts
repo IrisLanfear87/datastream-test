@@ -259,3 +259,160 @@ export const mockRowWithMissingResultFields = {
     cursor: 0,
   },
 };
+
+// Mock CSVDataRowUnit arrays for calculateAvg tests
+export const mockValidTemperatureValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "20.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "30.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "25.0",
+    ResultUnit: "deg C" as const,
+  },
+];
+
+export const mockMixedValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "20.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "invalid",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "30.0",
+    ResultUnit: "deg C" as const,
+  },
+];
+
+export const mockAllInvalidValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "invalid1",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "not-a-number",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "NaN",
+    ResultUnit: "deg C" as const,
+  },
+];
+
+export const mockZeroTemperatureValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "0.0",
+    ResultUnit: "deg C" as const,
+  },
+];
+
+export const mockDecimalPrecisionValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "25.333333",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "26.666667",
+    ResultUnit: "deg C" as const,
+  },
+];
+
+export const mockNegativeTemperatureValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "-5.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "-15.0",
+    ResultUnit: "deg C" as const,
+  },
+];
+
+export const mockZeroSumTempValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "-5.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "-15.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "5.0",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "15.0",
+    ResultUnit: "deg C" as const,
+  },
+];
+
+export const mockDecimalTemperatureValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "12.5",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "17.3",
+    ResultUnit: "deg C" as const,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water" as const,
+    ResultValue: "20.2",
+    ResultUnit: "deg C" as const,
+  },
+];

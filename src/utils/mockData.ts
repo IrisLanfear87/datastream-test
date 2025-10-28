@@ -1,6 +1,3 @@
-// Dummy data for testing filterNonWaterTempRows function
-// Based on links provided
-
 export const mockWaterTempRow1 = {
   data: {
     ActivityDepthHeightMeasure: "",
@@ -216,7 +213,7 @@ export const mockNonWaterTempRow = {
 };
 
 export const mockInvalidRow = {
-  data: null, // This will cause an error during processing
+  data: null,
   errors: [],
   meta: {
     delimiter: ",",

@@ -264,156 +264,156 @@ export const mockRowWithMissingResultFields = {
 export const mockValidTemperatureValues = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "20.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "30.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "25.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
 ];
 
 export const mockMixedValues = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "20.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "invalid",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "30.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
 ];
 
 export const mockAllInvalidValues = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "invalid1",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "not-a-number",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "NaN",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
 ];
 
 export const mockZeroTemperatureValues = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "0.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
 ];
 
 export const mockDecimalPrecisionValues = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "25.333333",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "26.666667",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
 ];
 
 export const mockNegativeTemperatureValues = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "-5.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "-15.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
 ];
 
 export const mockZeroSumTempValues = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "-5.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "-15.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "5.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "15.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
 ];
 
 export const mockDecimalTemperatureValues = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "12.5",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "17.3",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "20.2",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
 ];
 
@@ -421,77 +421,98 @@ export const mockDecimalTemperatureValues = [
 export const mockSingleUnitValues = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "20.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "25.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "30.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
 ];
 
 export const mockMultipleUnitsValues = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "20.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "68.0",
-    ResultUnit: "deg F" as const,
+    ResultUnit: "deg F",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "293.15",
-    ResultUnit: "deg K" as const,
+    ResultUnit: "deg K",
   },
 ];
 
 export const mockSingleUnitValue = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "20.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
 ];
 
 export const mockDuplicateUnitsValues = [
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "20.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "25.0",
-    ResultUnit: "deg F" as const,
+    ResultUnit: "deg F",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "30.0",
-    ResultUnit: "deg C" as const,
+    ResultUnit: "deg C",
   },
   {
     MonitoringLocationID: "LOC001",
-    CharacteristicName: "Temperature, water" as const,
+    CharacteristicName: "Temperature, water",
     ResultValue: "77.0",
-    ResultUnit: "deg F" as const,
+    ResultUnit: "deg F",
+  },
+];
+
+export const mockInvalidUnitsValues = [
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water",
+    ResultValue: "20.0",
+    ResultUnit: "",
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water",
+    ResultValue: "25.0",
+    ResultUnit: null,
+  },
+  {
+    MonitoringLocationID: "LOC001",
+    CharacteristicName: "Temperature, water",
+    ResultValue: "30.0",
+    ResultUnit: undefined,
   },
 ];

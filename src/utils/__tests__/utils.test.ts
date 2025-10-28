@@ -23,7 +23,8 @@ import {
   mockSingleUnitValue,
   mockMultipleUnitsValues,
   mockDuplicateUnitsValues,
-  mockEmptyValuesForUnits,
+  mockSingleUnitValues,
+  mockInvalidUnitsValues,
 } from "../mockData";
 import type {
   CSVDataRowUnit,
@@ -197,23 +198,40 @@ describe("Utils Functions", () => {
 
   describe("deduplicateUnits", () => {
     it("should return empty array for empty input", () => {
-      // Test: deduplicateUnits([]) should return []
-    });
-
-    it("should return single unit when provided with a single value array", () => {
-      // Test: deduplicateUnits(mockSingleUnitValue) should return ["deg C"]
+      const result = deduplicateUnits([]);
+      expect(result).toEqual([]);
     });
 
     it("should return single unit when all values have the same unit", () => {
-      // Test: deduplicateUnits(mockSingleUnitValues) should return ["deg C"]
+      const result = deduplicateUnits(mockSingleUnitValues);
+      expect(result).toEqual(["deg C"]);
     });
 
     it("should return multiple unique units when values have different units", () => {
-      // Test: deduplicateUnits(mockMultipleUnitsValues) should return ["deg C", "deg F", "deg K"]
+      const result = deduplicateUnits(mockMultipleUnitsValues);
+      expect(result).toHaveLength(3);
+      expect(result).toContain("deg C");
+      expect(result).toContain("deg F");
+      expect(result).toContain("deg K");
     });
 
     it("should deduplicate units when there are duplicates", () => {
-      // Test: deduplicateUnits(mockDuplicateUnitsValues) should return ["deg C", "deg F"]
+      const result = deduplicateUnits(mockDuplicateUnitsValues);
+      expect(result).toHaveLength(2);
+      expect(result).toContain("deg C");
+      expect(result).toContain("deg F");
+    });
+
+    it("should return a single unit when passed an array with a single elment", () => {
+      const result = deduplicateUnits(mockSingleUnitValue);
+      expect(result).toEqual(["deg C"]);
+    });
+
+    it("should return an empty array if no valid unit values are provided", () => {
+      const result = deduplicateUnits(
+        mockInvalidUnitsValues as CSVDataRowUnit[]
+      );
+      expect(result).toEqual([]);
     });
   });
 });

@@ -87,7 +87,7 @@ export function deduplicateUnits(values: CSVDataRowUnit[]): Unit[] {
     return acc;
   }, new Set<Unit>());
 
-  return [...unitSet];
+  return [...unitSet].filter(Boolean);
 }
 
 export function calculateTabularData(

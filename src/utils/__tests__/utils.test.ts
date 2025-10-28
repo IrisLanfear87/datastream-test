@@ -253,5 +253,53 @@ describe("Utils Functions", () => {
         "deg C",
       ]);
     });
+
+    it("should handle single location with multiple units (mixed) and return appropriate messages", () => {
+      const result = calculateTabularData({
+        LOC001: mockMultipleUnitsValues,
+      });
+      expect(result).toHaveLength(1);
+      expect(result[0]).toEqual([
+        "LOC001",
+        "Temperature, water",
+        "No data available",
+        "Dataset contains mixed unit values",
+      ]);
+    });
+
+    it("should handle multiple locations with appropriate values and units", () => {
+      const result = calculateTabularData({
+        LOC001: mockSingleUnitValues,
+        LOC002: mockDecimalTemperatureValues,
+      });
+      expect(result).toHaveLength(2);
+
+      expect(result[0]).toEqual([
+        "LOC001",
+        "Temperature, water",
+        "25.00",
+        "deg C",
+      ]);
+
+      expect(result[1]).toEqual([
+        "LOC002",
+        "Temperature, water",
+        "16.67",
+        "deg C",
+      ]);
+    });
+
+    it("should handle location with no valid temperature values and return an appropriate message", () => {
+      const result = calculateTabularData({
+        LOC001: mockAllInvalidValues,
+      });
+      expect(result).toHaveLength(1);
+      expect(result[0]).toEqual([
+        "LOC001",
+        "Temperature, water",
+        "No data available",
+        "N/A",
+      ]);
+    });
   });
 });

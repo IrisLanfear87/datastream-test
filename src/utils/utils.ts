@@ -117,12 +117,10 @@ export function calculateTabularData(
         aggregatedByLocationId[location]
       );
 
-      tableRowInitData[2] =
-        averageResultValuePerLocation === null
-          ? NOT_AVAILABLE
-          : averageResultValuePerLocation;
-
-      tableRowInitData[3] = uniqueUnits[0];
+      if (averageResultValuePerLocation !== null) {
+        tableRowInitData[2] = averageResultValuePerLocation;
+        tableRowInitData[3] = uniqueUnits[0];
+      }
     }
 
     tabularData.push(tableRowInitData);

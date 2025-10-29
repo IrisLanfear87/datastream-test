@@ -1,73 +1,91 @@
-# React + TypeScript + Vite
+### Water Temperature Average Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application that processes CSV datasets containing water temperature measurements and calculates average values grouped by monitoring location.
 
-Currently, two official plugins are available:
+### Original Task Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Assignment Overview
 
-## React Compiler
+Create an app using SvelteKit (preferred) or another JS framework with the functionality
+listed below. Assume this code will be integrated into an existing application and will be
+maintained and updated by others in the future.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Requirements
 
-## Expanding the ESLint configuration
+• There should be a CSV file input
+• The file should be processed client-side
+• From the CSV file, calculate the average of “ResultValue” where “CharacteristicName" is equal to "Temperature, water” for any “MonitoringLocationID” input
+• Display the result
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 📋 Overview
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+This application allows users to upload CSV files containing water temperature data and automatically:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Filters for water temperature measurements only
+- Groups data by monitoring location ID
+- Calculates average temperature values per location
+- Handles mixed units and data validation
+- Displays results in a clean, tabular format
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 🛠 Technology Stack
+
+- **React 19.1.1** with TypeScript
+- **Vite** for build tooling and development server
+- **PapaParse** for CSV file processing
+- **CSS modules** for component styling
+- **Jest** with React Testing Library for testing
+- **ESLint** for code quality
+
+### 🚀 Getting Started
+
+## Prerequisites
+
+- Node.js (version 16 or higher)
+- npm or yarn package manager
+
+## Installation
+
+1. **Clone and navigate to the project directory**
+
+   ```bash
+   cd react_datastream_test_app
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+### Running the Application in Development Mode
+
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The application will start on [http://localhost:5173](http://localhost:5173)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🌐 Viewing the Application In the Browser
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Navigate to** [http://localhost:5173](http://localhost:5173)
+2. **Upload a CSV file** using the file input (accepts .csv files only)
+   Example files can be found here:
+   https://doi.org/10.25976/vahx-dq27
+   https://doi.org/10.25976/3vfm-jp51
+3. **View results** in the table below, or error messages if processing fails
+
+### Expected CSV Format
+
+The application expects CSV files with the following columns:
+
+- `MonitoringLocationID` - Identifier for monitoring location
+- `CharacteristicName` - Type of measurement (filters for "Temperature, water")
+- `ResultValue` - Temperature value
+- `ResultUnit` - Unit of measurement (e.g., "deg C", "deg F")
+
+### 🧪 Testing
+
+## Run All Tests
+
+```bash
+npm test
 ```

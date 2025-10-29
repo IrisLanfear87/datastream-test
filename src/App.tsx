@@ -12,8 +12,7 @@ import type {
   TabularDataUnit,
 } from "./interface/types";
 import ResultTable from "./components/ResultTable/ResultTable";
-import { TableColumnHeaders } from "./constants/constants";
-import { GENERIC_ERROR_MESSAGE } from "./constants/copy";
+import { GENERIC_ERROR_MESSAGE, TableColumnHeaders } from "./constants/copy";
 
 function App() {
   const [tabularData, setTabularData] = useState<TabularDataUnit[] | null>(

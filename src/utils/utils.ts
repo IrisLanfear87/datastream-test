@@ -1,10 +1,10 @@
+import { PhysicalProperties } from "../constants/constants";
 import {
   MIXED_UNITS,
   NO_DATA,
   NOT_AVAILABLE,
-  PhysicalProperties,
-} from "../constants/constants";
-import { ROW_ERROR_MESSAGE } from "../constants/copy";
+  ROW_ERROR_MESSAGE,
+} from "../constants/copy";
 import type {
   CSVDataRowUnit,
   ParsedCsvDataResults,

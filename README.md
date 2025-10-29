@@ -69,8 +69,8 @@ The application will start on [http://localhost:5173](http://localhost:5173)
 1. **Navigate to** [http://localhost:5173](http://localhost:5173)
 2. **Upload a CSV file** using the file input (accepts .csv files only)
    Example files can be found here:
-   https://doi.org/10.25976/vahx-dq27
-   https://doi.org/10.25976/3vfm-jp51
+   - https://doi.org/10.25976/vahx-dq27
+   - https://doi.org/10.25976/3vfm-jp51
 3. **View results** in the table below, or error messages if processing fails
 
 ## Expected CSV Format

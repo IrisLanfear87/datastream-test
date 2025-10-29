@@ -1,6 +1,6 @@
 import styles from "./CsvUploader.module.css";
 
-import { type ChangeEvent } from "react";
+import React, { type ChangeEvent } from "react";
 
 import type {
   CSVInputProps,

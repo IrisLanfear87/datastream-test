@@ -12,10 +12,10 @@ maintained and updated by others in the future.
 
 ### Requirements
 
-• There should be a CSV file input
-• The file should be processed client-side
-• From the CSV file, calculate the average of “ResultValue” where “CharacteristicName" is equal to "Temperature, water” for any “MonitoringLocationID” input
-• Display the result
+- There should be a CSV file input
+- The file should be processed client-side
+- From the CSV file, calculate the average of “ResultValue” where “CharacteristicName" is equal to "Temperature, water” for any “MonitoringLocationID” input
+- Display the result
 
 ## 📋 Overview
 

@@ -1,9 +1,9 @@
 export const COUNT_PLACEHOLDER = `$%$`;
 
 // Error copy
-export const COUNT_ERROR_MESSAGE = `Out of you whole dataset ${COUNT_PLACEHOLDER} data points haven't parsed correctly`;
-export const GENERIC_ERROR_MESSAGE = "An error occured while parsing data";
-export const ROW_ERROR_MESSAGE = "An error occured while parsing a data row";
+export const COUNT_ERROR_MESSAGE = `Out of your whole dataset, errors occured while parsing at least ${COUNT_PLACEHOLDER} of your data points.`;
+export const GENERIC_ERROR_MESSAGE = "An error occured while parsing data.";
+export const ROW_ERROR_MESSAGE = "An error occured while parsing a data row.";
 
 export const CSV_FILE_TITLE = "Choose a dataset to parse";
 

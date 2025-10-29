@@ -1,23 +1,23 @@
-### Water Temperature Average Calculator
+# Water Temperature Average Calculator
 
 A React application that processes CSV datasets containing water temperature measurements and calculates average values grouped by monitoring location.
 
-### Original Task Description
+## Original Task Description
 
-# Assignment Overview
+### Assignment Overview
 
 Create an app using SvelteKit (preferred) or another JS framework with the functionality
 listed below. Assume this code will be integrated into an existing application and will be
 maintained and updated by others in the future.
 
-# Requirements
+### Requirements
 
 • There should be a CSV file input
 • The file should be processed client-side
 • From the CSV file, calculate the average of “ResultValue” where “CharacteristicName" is equal to "Temperature, water” for any “MonitoringLocationID” input
 • Display the result
 
-### 📋 Overview
+## 📋 Overview
 
 This application allows users to upload CSV files containing water temperature data and automatically:
 
@@ -27,7 +27,7 @@ This application allows users to upload CSV files containing water temperature d
 - Handles mixed units and data validation
 - Displays results in a clean, tabular format
 
-### 🛠 Technology Stack
+## 🛠 Technology Stack
 
 - **React 19.1.1** with TypeScript
 - **Vite** for build tooling and development server
@@ -36,14 +36,14 @@ This application allows users to upload CSV files containing water temperature d
 - **Jest** with React Testing Library for testing
 - **ESLint** for code quality
 
-### 🚀 Getting Started
+## 🚀 Getting Started
 
-## Prerequisites
+### Prerequisites
 
 - Node.js (version 16 or higher)
 - npm or yarn package manager
 
-## Installation
+### Installation
 
 1. **Clone and navigate to the project directory**
 
@@ -64,7 +64,7 @@ npm run dev
 
 The application will start on [http://localhost:5173](http://localhost:5173)
 
-### 🌐 Viewing the Application In the Browser
+## 🌐 Viewing the Application In the Browser
 
 1. **Navigate to** [http://localhost:5173](http://localhost:5173)
 2. **Upload a CSV file** using the file input (accepts .csv files only)
@@ -73,7 +73,7 @@ The application will start on [http://localhost:5173](http://localhost:5173)
    https://doi.org/10.25976/3vfm-jp51
 3. **View results** in the table below, or error messages if processing fails
 
-### Expected CSV Format
+## Expected CSV Format
 
 The application expects CSV files with the following columns:
 
@@ -82,9 +82,9 @@ The application expects CSV files with the following columns:
 - `ResultValue` - Temperature value
 - `ResultUnit` - Unit of measurement (e.g., "deg C", "deg F")
 
-### 🧪 Testing
+## 🧪 Testing
 
-## Run All Tests
+### Run All Tests
 
 ```bash
 npm test

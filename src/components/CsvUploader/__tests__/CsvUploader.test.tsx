@@ -7,21 +7,21 @@ import CsvUploader from "../CsvUploader";
 import type { CSVInputProps } from "../../../interface/types";
 
 describe("CsvUploader Component", () => {
-  let mockHandleParsing: jest.MockedFunction<CSVInputProps["handleParsing"]>;
+  let mockHandleParsing: jest.MockedFunction<CSVInputProps["onUpload"]>;
 
   beforeEach(() => {
     mockHandleParsing = jest.fn();
   });
 
   it("should render the component with correct copy", () => {
-    render(<CsvUploader handleParsing={mockHandleParsing} />);
+    render(<CsvUploader onUpload={mockHandleParsing} />);
 
     const titleText = screen.getByText("Choose a dataset to parse");
     expect(titleText).toBeTruthy();
   });
 
   it("should have accept='.csv' attribute on input", () => {
-    render(<CsvUploader handleParsing={mockHandleParsing} />);
+    render(<CsvUploader onUpload={mockHandleParsing} />);
 
     const fileInput = document.querySelector(
       'input[type="file"]'
@@ -33,7 +33,7 @@ describe("CsvUploader Component", () => {
 
   it("should call handleParsing when a valid CSV file is selected", async () => {
     const user = userEvent.setup();
-    render(<CsvUploader handleParsing={mockHandleParsing} />);
+    render(<CsvUploader onUpload={mockHandleParsing} />);
 
     const fileInput = document.querySelector(
       'input[type="file"]'

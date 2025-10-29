@@ -7,7 +7,7 @@ export const ROW_ERROR_MESSAGE = "An error occured while parsing a data row";
 
 export const CSV_FILE_TITLE = "Choose a dataset to parse";
 
-export const TableColumnHeaders = [
+export const TABLE_HEADERS = [
   "Monitoring Location ID",
   "Characteristic Name",
   "Average Result Value",

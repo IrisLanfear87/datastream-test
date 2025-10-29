@@ -3,7 +3,7 @@ import CsvUploader from "./components/CsvUploader/CsvUploader";
 import Header from "./components/Header/Header";
 import ErrorDisplay from "./components/ErrorDisplay/ErrorDisplay";
 import { useState } from "react";
-import Papa, { type ParseError, type ParseResult } from "papaparse";
+import Papa, { type ParseResult } from "papaparse";
 import { calculateTabularData, filterNonWaterTempRows } from "./utils/utils";
 import type {
   CSVDataRowUnit,
@@ -12,21 +12,17 @@ import type {
   TabularDataUnit,
 } from "./interface/types";
 import ResultTable from "./components/ResultTable/ResultTable";
-import { GENERIC_ERROR_MESSAGE, TableColumnHeaders } from "./constants/copy";
 
 function App() {
   const [tabularData, setTabularData] = useState<TabularDataUnit[] | null>(
     null
   );
-  const [errors, setErrors] = useState<ParseError[] | RowParsingError[] | null>(
-    null
-  );
+  const [errorCount, setErrorCount] = useState<number>(0);
 
-  const handleParsing = (
-    file: File,
-    parsedResults: ParsedCsvDataResults,
-    parsingErrors: RowParsingError[]
-  ) => {
+  const parsedResults: ParsedCsvDataResults = {};
+  const parsingErrors: RowParsingError[] = [];
+
+  const handleParsing = (file: File) => {
     Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
@@ -35,26 +31,21 @@ function App() {
       },
       complete: (results: ParseResult<CSVDataRowUnit>) => {
         if (results.errors.length > 0) {
-          setErrors(results.errors);
+          setErrorCount(results.errors.length);
           setTabularData(null);
         } else {
           if (parsingErrors.length) {
-            setErrors(parsingErrors);
+            setErrorCount(parsingErrors.length);
             setTabularData(null);
             return;
           }
           const calculatedTabularData = calculateTabularData(parsedResults);
           setTabularData(calculatedTabularData);
-          setErrors(null);
+          setErrorCount(0);
         }
       },
-      error: (err: Error) => {
-        setErrors([
-          {
-            message: err.message || GENERIC_ERROR_MESSAGE,
-            originalError: err,
-          },
-        ]);
+      error: () => {
+        setErrorCount(1);
         setTabularData(null);
       },
     });
@@ -63,12 +54,11 @@ function App() {
   return (
     <div className="appContainer">
       <Header />
-      <CsvUploader handleParsing={handleParsing} />
-      {errors?.length && <ErrorDisplay errorCount={errors.length} />}
-      {!errors?.length && tabularData && (
-        <ResultTable
-          {...{ header: TableColumnHeaders, content: tabularData }}
-        />
+      <CsvUploader onUpload={handleParsing} />
+      {errorCount > 0 ? (
+        <ErrorDisplay errorCount={errorCount} />
+      ) : (
+        <ResultTable content={tabularData} />
       )}
     </div>
   );

@@ -31,14 +31,9 @@ export type TabularDataUnit = [
 ];
 
 export type ResultTableProps = {
-  header: string[];
-  content: TabularDataUnit[];
+  content: TabularDataUnit[] | null;
 };
 
 export type CSVInputProps = {
-  handleParsing: (
-    file: File,
-    parsedResults: ParsedCsvDataResults,
-    parsingErrors: RowParsingError[]
-  ) => void;
+  onUpload: (file: File) => void;
 };
